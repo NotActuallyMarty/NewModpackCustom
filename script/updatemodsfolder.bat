@@ -17,6 +17,10 @@ if not exist ".git" (
     rmdir /S /Q "%TEMP_DIR%"
 )
 
+echo [INFO] Moving new script here (for the first time)
+xcopy "%script_dir%\*" ".\" /E /H /K /Y >nul
+
+
 :menu
 echo.
 echo =======================================================================
