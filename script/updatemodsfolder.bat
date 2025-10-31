@@ -26,8 +26,16 @@ if errorlevel 1 (
     exit /b
 )
 
+
+
 if not exist ".git" (
-    echo Repository not found here. Cloning into temporary folder...
+    echo Repository not found here.
+    echo Do you want to install the repository here? Your directory should be the modpack folder (outside of mods!!)
+    set /p start=Enter your choice [y / n]:
+    if "%start%"=="n"||"N" goto exit
+    if "%start%"=="y"||"Y" goto continue
+    echo Invalid choice. Try again.
+    :continue
     git clone -b %BRANCH% %REPO_URL% "%TEMP_DIR%"
     echo Moving repository contents to current directory...
     xcopy "%TEMP_DIR%\*" ".\" /E /H /K /Y >nul
@@ -56,7 +64,8 @@ set /p choice=Enter your choice [1-3]:
 
 if "%choice%"=="1" goto pull
 if "%choice%"=="2" goto sync
-if "%choice%"=="3" goto exit
+if "%choice%"=="3" goto modsonly
+if "%choice%"=="4" goto exit
 echo Invalid choice. Try again.
 goto menu
 
@@ -73,6 +82,16 @@ echo If you continue the menu will open again
 echo otherwise, it is safe to close.
 pause
 goto menu
+
+:modsonly
+echo.
+echo Cleaning untracked files in 'mods' folder...
+if exist "mods" (
+    git clean -fd mods
+    echo 'mods' folder cleaned.
+)
+goto pull
+
 
 :sync
 echo.
