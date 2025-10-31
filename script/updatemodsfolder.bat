@@ -28,7 +28,7 @@ if errorlevel 1 (
 
 
 
-if not exist ".git" (
+if not exist ".gitignore" (
     echo Repository not found here.
     echo Do you want to install the repository here? Your directory should be the modpack folder (outside of mods!!)
     set /p start=Enter your choice [y / n]:
