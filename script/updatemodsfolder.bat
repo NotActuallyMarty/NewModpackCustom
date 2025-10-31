@@ -7,6 +7,17 @@ set "REPO_URL=https://github.com/NotActuallyMarty/NewModpackCustom.git"
 set "BRANCH=main"
 set "TEMP_DIR=_temp_repo_clone"
 set "script_dir=script"
+set "GIT_URL=https://github.com/git-for-windows/git/releases/download/v2.51.2.windows.1/Git-2.51.2-64-bit.exe"
+
+git --version >nul 2>&1
+if errorlevel 1 (
+    echo [ERROR] Git is not installed or not found in PATH.
+    echo Opening Git download page...
+    start "" "%GIT_URL%"
+    echo Please install Git, then re-run this script.
+    pause
+    exit /b
+)
 
 if not exist ".git" (
     echo Repository not found here. Cloning into temporary folder...
