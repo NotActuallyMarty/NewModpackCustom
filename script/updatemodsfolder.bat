@@ -29,13 +29,7 @@ if errorlevel 1 (
 
 
 if not exist ".gitignore" (
-    echo Repository not found here.
-    echo Do you want to install the repository here? Your directory should be the modpack folder (outside of mods!!)
-    set /p start=Enter your choice [y / n]:
-    if "%start%"=="n"||"N" goto exit
-    if "%start%"=="y"||"Y" goto continue
-    echo Invalid choice. Try again.
-    :continue
+    echo Repository not found here. Cloning into temporary folder...
     git clone -b %BRANCH% %REPO_URL% "%TEMP_DIR%"
     echo Moving repository contents to current directory...
     xcopy "%TEMP_DIR%\*" ".\" /E /H /K /Y >nul
