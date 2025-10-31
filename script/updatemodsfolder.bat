@@ -42,8 +42,11 @@ echo Pulling latest changes from "%BRANCH%"...
 git pull origin %BRANCH%
 echo [INFO] Moving new script here
 xcopy "%script_dir%\*" ".\" /E /H /K /Y >nul
+
 echo.
 echo [DONE!] Pull complete.
+echo If you continue the menu will open again
+echo otherwise, it is safe to close.
 pause
 goto menu
 
@@ -56,8 +59,11 @@ git reset --hard origin/%BRANCH%
 git clean -fd
 echo [INFO] Moving new script here
 xcopy "%script_dir%\*" ".\" /E /H /K /Y >nul
+
 echo.
 echo [DONE!] Repository synced successfully.
+echo If you continue the menu will open again
+echo otherwise, it is safe to close.
 pause
 goto menu
 
