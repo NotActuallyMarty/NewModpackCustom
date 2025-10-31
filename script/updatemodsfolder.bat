@@ -53,6 +53,7 @@ goto menu
 :sync
 echo.
 echo Syncing repository with remote branch "%BRANCH%"...
+git clean -fd
 git fetch origin %BRANCH%
 git checkout -B %BRANCH% origin/%BRANCH%
 git reset --hard origin/%BRANCH%
