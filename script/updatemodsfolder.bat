@@ -1,6 +1,8 @@
 @echo off
 setlocal
 
+cd /d "%~dp0"
+
 set "REPO_URL=https://github.com/NotActuallyMarty/NewModpackCustom.git"
 set BRANCH=main
 set TEMP_DIR=_temp_repo_clone
@@ -53,6 +55,7 @@ goto menu
 :sync
 echo.
 echo Syncing repository with remote branch "%BRANCH%"...
+git clean -fd
 git fetch origin %BRANCH%
 git checkout -B %BRANCH% origin/%BRANCH%
 git reset --hard origin/%BRANCH%
