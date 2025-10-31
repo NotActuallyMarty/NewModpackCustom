@@ -1,38 +1,66 @@
 @echo off
 setlocal
+
 set "REPO_URL=https://github.com/NotActuallyMarty/NewModpackCustom.git"
-set "DUMMY_BRANCH=dummybranch"
-set "MAIN_BRANCH=main"
-set "TEMP_DIR=_temp_repo_clone"
-set "script_dir=script"
+set BRANCH=main
+set TEMP_DIR=_temp_repo_clone
 
 if not exist ".git" (
-    echo [INFO] No repository found. Cloning dummy branch shallowly into temporary folder...
-    git clone --branch %DUMMY_BRANCH% --single-branch --depth 1 %REPO_URL% "%TEMP_DIR%"
-    if errorlevel 1 (
-        echo [ERROR] Failed to clone dummy branch. Exiting.
-        pause
-        exit /b 1
-    )
-
-    echo [INFO] Moving dummy repository contents to current directory...
+    echo Repository not found here. Cloning into temporary folder...
+    git clone -b %BRANCH% %REPO_URL% "%TEMP_DIR%"
+    echo Moving repository contents to current directory...
     xcopy "%TEMP_DIR%\*" ".\" /E /H /K /Y >nul
-
-    echo [INFO] Cleaning up temporary folder...
+    echo Cleaning up temporary folder...
     rmdir /S /Q "%TEMP_DIR%"
-
-    echo [INFO] Fetching and switching to "%MAIN_BRANCH%" branch...
-    git fetch origin %MAIN_BRANCH% --depth 1
-    git checkout -B %MAIN_BRANCH%
-    git pull origin %MAIN_BRANCH% --allow-unrelated-histories
-) else (
-    echo [INFO] Repository already exists. Pulling latest changes from "%MAIN_BRANCH%"...
-    git pull origin %MAIN_BRANCH%
 )
 
+:menu
+echo.
+echo =======================================================================
+echo Marty's totally cool mod updater that isn't just a disguised git repo
+echo =======================================================================
+echo [1] Download new mods, resourcepacks, shaderpacks.
+echo _______________________________________________________________________
+echo [2] Full sync
+echo - WARNING -
+echo This will delete *YOUR* custom mods, resourcepacks, shaderpacks
+echo _______________________________________________________________________
+echo [3] Exit
+echo =======================================================================
+set /p choice=Enter your choice [1-3]: 
+
+if "%choice%"=="1" goto pull
+if "%choice%"=="2" goto sync
+if "%choice%"=="3" goto exit
+echo Invalid choice. Try again.
+goto menu
+
+:pull
+echo.
+echo Pulling latest changes from "%BRANCH%"...
+git pull origin %BRANCH%
 echo [INFO] Moving new script here
     xcopy "%script_dir%\*" ".\" /E /H /K /Y >nul
-
 echo.
-echo [DONE] Repository updated successfully.
+echo [DONE!] Pull complete.
 pause
+goto menu
+
+:sync
+echo.
+echo Syncing repository with remote branch "%BRANCH%"...
+git fetch origin %BRANCH%
+git checkout -B %BRANCH% origin/%BRANCH%
+git reset --hard origin/%BRANCH%
+git clean -fd
+echo [INFO] Moving new script here
+    xcopy "%script_dir%\*" ".\" /E /H /K /Y >nul
+echo.
+echo [DONE!] Repository synced successfully.
+pause
+goto menu
+
+:exit
+echo Exiting...
+endlocal
+exit /b
