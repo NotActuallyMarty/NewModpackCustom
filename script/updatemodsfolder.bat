@@ -58,9 +58,11 @@ echo [2] Full sync
 echo - WARNING -
 echo This will delete *YOUR* custom mods, resourcepacks, shaderpacks
 echo _______________________________________________________________________
-echo [3] Exit
+echo [3] Clean mods folder only
+echo _______________________________________________________________________
+echo [4] Exit
 echo =======================================================================
-set /p choice=Enter your choice [1-3]: 
+set /p choice=Enter your choice [1-4]: 
 
 if "%choice%"=="1" goto pull
 if "%choice%"=="2" goto sync
