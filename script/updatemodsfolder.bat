@@ -12,8 +12,15 @@ set "GIT_URL=https://github.com/git-for-windows/git/releases/download/v2.51.2.wi
 git --version >nul 2>&1
 if errorlevel 1 (
     echo [ERROR] Git is not installed or not found in PATH.
+    echo Please install Git, then re-run this script.
+    echo Press enter to download git.exe
+    echo.
+    pause
     echo Opening Git download page...
     start "" "%GIT_URL%"
+    echo.
+    echo Please install Git, then re-run this script.
+    echo Please install Git, then re-run this script.
     echo Please install Git, then re-run this script.
     pause
     exit /b
