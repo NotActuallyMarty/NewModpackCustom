@@ -4,6 +4,7 @@ setlocal
 set "REPO_URL=https://github.com/NotActuallyMarty/NewModpackCustom.git"
 set BRANCH=main
 set TEMP_DIR=_temp_repo_clone
+set "script_dir=script"
 
 if not exist ".git" (
     echo Repository not found here. Cloning into temporary folder...
@@ -40,7 +41,7 @@ echo.
 echo Pulling latest changes from "%BRANCH%"...
 git pull origin %BRANCH%
 echo [INFO] Moving new script here
-    xcopy "%script_dir%\*" ".\" /E /H /K /Y >nul
+xcopy "%script_dir%\*" ".\" /E /H /K /Y >nul
 echo.
 echo [DONE!] Pull complete.
 pause
@@ -54,7 +55,7 @@ git checkout -B %BRANCH% origin/%BRANCH%
 git reset --hard origin/%BRANCH%
 git clean -fd
 echo [INFO] Moving new script here
-    xcopy "%script_dir%\*" ".\" /E /H /K /Y >nul
+xcopy "%script_dir%\*" ".\" /E /H /K /Y >nul
 echo.
 echo [DONE!] Repository synced successfully.
 pause
