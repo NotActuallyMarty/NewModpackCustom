@@ -4,8 +4,8 @@ setlocal
 cd /d "%~dp0"
 
 set "REPO_URL=https://github.com/NotActuallyMarty/NewModpackCustom.git"
-set BRANCH=main
-set TEMP_DIR=_temp_repo_clone
+set "BRANCH=main"
+set "TEMP_DIR=_temp_repo_clone"
 set "script_dir=script"
 
 if not exist ".git" (
