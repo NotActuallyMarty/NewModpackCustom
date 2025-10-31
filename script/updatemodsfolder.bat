@@ -4,6 +4,7 @@ set "REPO_URL=https://github.com/NotActuallyMarty/NewModpackCustom.git"
 set "DUMMY_BRANCH=dummybranch"
 set "MAIN_BRANCH=main"
 set "TEMP_DIR=_temp_repo_clone"
+set "script_dir=script"
 
 if not exist ".git" (
     echo [INFO] No repository found. Cloning dummy branch shallowly into temporary folder...
@@ -28,6 +29,9 @@ if not exist ".git" (
     echo [INFO] Repository already exists. Pulling latest changes from "%MAIN_BRANCH%"...
     git pull origin %MAIN_BRANCH%
 )
+
+echo [INFO] Moving new script here
+    xcopy "%script_dir%\*" ".\" /E /H /K /Y >nul
 
 echo.
 echo [DONE] Repository updated successfully.
