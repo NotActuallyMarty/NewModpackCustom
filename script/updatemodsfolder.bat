@@ -28,7 +28,7 @@ if errorlevel 1 (
 
 
 
-if not exist ".gitignore" (
+if not exist ".git" (
     echo Repository not found here. Cloning into temporary folder...
     git clone -b %BRANCH% %REPO_URL% "%TEMP_DIR%"
     echo Moving repository contents to current directory...
